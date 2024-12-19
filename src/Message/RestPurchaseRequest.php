@@ -469,6 +469,13 @@ class RestPurchaseRequest extends RestAbstractRequest
             'issuer_id' => $this->getIssuer(),
         );
 
+        if (!is_null($this->getCard())) {
+            $data['card_number'] = $this->getCard()->getNumber();
+            $data['card_holder_name'] = $this->getCard()->getName();
+            $data['card_expiry_date'] = $this->getCard()->getExpiryDate("ym");
+            $data['card_cvc'] = $this->getCard()->getCvv();
+        }
+
         return array_filter($data);
     }
 
